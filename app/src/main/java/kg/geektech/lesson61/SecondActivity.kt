@@ -1,5 +1,6 @@
 package kg.geektech.lesson61
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,9 +15,9 @@ class SecondActivity : AppCompatActivity() {
         binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.editText.setText(intent.getStringExtra("text"))
+        binding.editText.setText(intent.getStringExtra(MainActivity.KEY))
         binding.btnGo.setOnClickListener {
-            setResult(RESULT_OK,Intent().putExtra("key",binding.editText.text.toString()))
+            setResult(RESULT_OK,Intent().putExtra(MainActivity.KEY_BACK,binding.editText.text.toString()))
             finish()
         }
     }

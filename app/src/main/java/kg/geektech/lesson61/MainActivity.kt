@@ -13,6 +13,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var registerForActivityResult: ActivityResultLauncher<Intent>
 
+    companion object{
+        const val KEY = "key"
+        const val KEY_BACK = "keyBack"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -20,10 +25,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnGo.setOnClickListener {
             if (binding.editText.text.toString().isEmpty()){
-                Toast.makeText(this,"Введите текст",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,getString(R.string.enter_text),Toast.LENGTH_SHORT).show()
             }else{
                 Intent(this,SecondActivity::class.java).apply {
-                    putExtra("text",binding.editText.text.toString())
+                    putExtra(KEY,binding.editText.text.toString())
                     registerForActivityResult.launch(this)
                 }
             }
@@ -32,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         registerForActivityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
         ) { result ->
-            binding.editText.setText(result.data?.getStringExtra("key"))
+            binding.editText.setText(result.data?.getStringExtra(KEY_BACK))
         }
     }
 }
